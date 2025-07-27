@@ -13,6 +13,8 @@
     "push": "pwsh ./server-push.ps1"
   },
   "dependencies": {
+    "@mdui/icons": "^1.0.3",
+    "mdui": "^2.1.4",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"

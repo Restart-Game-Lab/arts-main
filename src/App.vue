@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import 'mdui/mdui.css';
+import 'mdui';
 </script>
 
 <template>
@@ -81,5 +83,10 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
+}
+
+/* 隐藏所有未注册的 mdui 组件，并在组件注册完成后立即显示： */
+:not(:defined) {
+  visibility: hidden;
 }
 </style>
