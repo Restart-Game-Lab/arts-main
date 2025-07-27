@@ -3,6 +3,11 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import 'mdui/mdui.css';
 import 'mdui';
+// 初始化 Microsoft Clarity 服务
+import Clarity from '@microsoft/clarity';
+
+const projectId = "slhc7hkkj6"
+Clarity.init(projectId);
 </script>
 
 <template>
