@@ -6,7 +6,7 @@ import 'mdui';
 // 初始化 Microsoft Clarity 服务
 import Clarity from '@microsoft/clarity';
 
-const projectId = "slhc7hkkj6"
+const projectId = <string>import.meta.env.VITE_MICROSOFT_CLARITY_PROJECT_ID
 Clarity.init(projectId);
 </script>
 

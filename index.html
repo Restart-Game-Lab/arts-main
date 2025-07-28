@@ -4,17 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restart Game Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+  <!-- 引用标题 -->
+  <title>%VITE_APP_NAME%</title>
   <!-- 初始化Google Analytics 服务-->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H71JG94VVT"></script>
+  <!-- TODO:将Google Analytics ID注入到APP.vue中，加强集成 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GOOGLE_ANALYTICS_ID%"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'G-H71JG94VVT');
+    gtag('config', '%VITE_GOOGLE_ANALYTICS_ID%');
   </script>
+  <!--  -->
 </head>
 
 <body>
