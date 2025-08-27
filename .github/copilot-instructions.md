@@ -23,6 +23,20 @@
 - 部署辅助脚本：
   npm run push   # 调用 PowerShell 脚本 server-push.ps1
 
+部署/推送脚本说明（`server-push.ps1`）：
+- 脚本执行流程（按顺序）：
+  1) 本地执行 `npm run build`（构建并输出到 `dist/`）；
+  2) 使用 SSH 连接远程主机别名 `ARTS-R2-JP`，清理目标目录 `/usr/web-server/sites/arts-home/index/*`；
+  3) 使用 `scp` 将本地 `dist/` 内容递归复制到远程目录；
+  4) 在远程主机上修改目标目录属主为 `1000:1000`。
+
+- 注意事项：
+  - 脚本依赖在本机可用的 SSH 配置（存在 `ARTS-R2-JP` 主机别名/配置）和可用的 `scp`/`ssh` 命令；在 Windows 上通常通过 Git for Windows 或 OpenSSH 提供。确保 `pwsh` 环境能找到这些工具。
+  - 运行该脚本会覆盖远端目录，请在执行前确认目标路径与权限；建议先在安全环境（或使用 `--dry-run` 的自定义脚本）测试。
+  - 警告：脚本中包含远程主机别名 `ARTS-R2-JP` 及目标路径 `/usr/web-server/sites/arts-home/index`，这是仓库示例配置。其他使用者在运行前必须把这些值替换为自己服务器的主机别名或地址与目标路径，切勿直接使用仓库中的配置以免误删或覆盖他人服务器上的文件。
+  - 若团队中存在 CI/CD，考虑将相同步骤迁移到 CI 管道并在仓库中隐藏或参数化敏感主机别名/凭证。
+
+
 重要文件与工程约定（必读，直接引用示例路径）：
 - 框架与打包器：Vue 3 + Vite — 入口与插件在 `vite.config.ts`。
   - `vite.config.ts` 中设置了 alias `@ -> ./src`（示例导入：`@/components/HelloWorld.vue`）。
