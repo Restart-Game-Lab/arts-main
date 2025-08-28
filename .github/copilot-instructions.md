@@ -48,10 +48,19 @@
 
 - 代码结构（约定位置）：
   - 源码：`src/`
-  - 视图：`src/views/`（例如 `HomeView.vue`, `AboutView.vue`）
-  - 组件：`src/components/` 与 `src/components/icons/`
+  - 视图：`src/views/`（例如 `HomeView.vue`）
+    - 视图组件仅作为路由容器，不应包含复杂的业务逻辑
+    - 推荐将具体实现拆分到 components 中的子组件
+  - 组件：`src/components/`
+    - 存放所有可复用的 Vue 组件
+    - 组件应当是独立的，包含自己的样式和逻辑
+    - 文件名使用 PascalCase（如 `HelloWorld.vue`）
   - 路由：`src/router/index.ts`
+    - 集中管理所有路由定义
+    - 建议使用路由懒加载以优化性能
   - 状态管理（Pinia）：`src/stores/`
+    - 存放所有状态存储定义
+    - 使用组合式 API 风格编写
 
 - 编辑器与开发提示：
   - README 推荐使用 VS Code + Volar（禁用 Vetur）。
@@ -67,9 +76,20 @@
 - 当添加新依赖或变更 `package.json`，同步提交 `package-lock.json`。
 
 集成点与外部依赖：
-- mdui：用于 UI，模板中大量以 `mdui-` 为前缀的自定义元素；相关数据在 `node_modules/mdui` 下（见 `.vscode/settings.json`）。
-- Pinia、vue-router：应用状态与路由通过常规目录结构组织（见 `src/stores` 与 `src/router`）。
-- clarity/analytics：`@microsoft/clarity` 已列入依赖，注意在修改跟踪或注入脚本时不要破坏初始化代码。
+- mdui：
+  - 用于 UI，以 `mdui-` 为前缀的自定义元素
+  - 自动注册，无需手动导入组件
+  - 样式已在 `App.vue` 中全局引入（`mdui/mdui.css`）
+  - 相关类型定义在 `node_modules/mdui` 下
+- 状态管理与路由：
+  - Pinia：使用组合式 API 风格，定义在 `src/stores/`
+  - Vue Router：路由配置在 `src/router/index.ts`
+- 分析工具：
+  - Microsoft Clarity：初始化配置在 `App.vue`，ID 通过环境变量注入
+  - Google Analytics：配置在 `index.html`，使用环境变量
+- TypeScript：
+  - 严格类型检查，使用 `vue-tsc`
+  - 路径别名 `@` 指向 `src/`
 
 对 AI 代理的具体建议（可执行动作示例）：
 - 新增页面组件：放在 `src/views/`，路由在 `src/router/index.ts` 注册，遵循现有命名与导出模式（用 `@/views/YourView.vue` 导入）。
