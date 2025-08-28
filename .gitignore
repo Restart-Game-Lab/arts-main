@@ -30,4 +30,4 @@ coverage
 *.tsbuildinfo
 
 #Custom build directories
-server-push.ps1
+# server-push.ps1
