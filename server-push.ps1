@@ -15,17 +15,9 @@ param(
     [switch]$Force    # 跳过确认提示
 )
 
-# 日志函数
 function Write-Info([string]$msg) { Write-Host "[INFO] $msg" -ForegroundColor Cyan }
 function Write-Warn([string]$msg) { Write-Host "[WARN] $msg" -ForegroundColor Yellow }
 function Write-Err([string]$msg) { Write-Host "[ERROR] $msg" -ForegroundColor Red }
-
-# 在退出时显示耗时
-$scriptStartTime = Get-Date
-trap { 
-    $duration = (Get-Date) - $scriptStartTime
-    Write-Info "总耗时: $($duration.TotalSeconds.ToString('0.00'))s"
-}
 
 Write-Info "目标主机: $TargetHost"
 Write-Info "远程路径: $RemotePath"
@@ -89,7 +81,7 @@ if (-not $Force) {
         exit 0
     }
 }
-        
+
 # 远程操作
 Write-Info "清理远端目录: ssh $TargetHost rm -rf $RemotePath/*"
 & ssh $TargetHost "rm -rf $RemotePath/*"
